@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const tapHint = document.getElementById("tap-hint");
 
     let musicStarted = false;
+    let typingDone = false;
 
     /* ===== Typing Effect ===== */
 
@@ -22,8 +23,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 setTimeout(typeEffect, speed);
             } else {
                 if (cursor) cursor.style.display = "none";
+                typingDone = true;
 
-                // Show tap hint after typing finishes
                 if (tapHint) {
                     tapHint.style.display = "block";
                     tapHint.style.opacity = "1";
@@ -34,26 +35,22 @@ document.addEventListener("DOMContentLoaded", function () {
         typeEffect();
     }
 
-    /* ===== Mobile Safe Tap Handler ===== */
+    /* ===== ALWAYS Allow Tap To Start Music ===== */
 
-    function handleTap() {
-
+    function playMusic() {
         if (!musicStarted && music) {
-
             musicStarted = true;
 
-            // Hide tap hint
-            if (tapHint) tapHint.style.display = "none";
-
-            // Play immediately inside tap
-            music.play();
-
-            document.removeEventListener("click", handleTap);
-            document.removeEventListener("touchstart", handleTap);
+            music.play().then(() => {
+                if (tapHint) tapHint.style.display = "none";
+            }).catch(err => {
+                console.log("Play blocked:", err);
+            });
         }
     }
 
-    document.addEventListener("click", handleTap);
-    document.addEventListener("touchstart", handleTap);
+    // Attach directly to body for strongest mobile compatibility
+    document.body.addEventListener("click", playMusic);
+    document.body.addEventListener("touchstart", playMusic);
 
 });
