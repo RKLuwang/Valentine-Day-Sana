@@ -263,3 +263,25 @@ body.home{
         height:200px;
     }
 }
+
+.tap-hint{
+    margin-top:15px;
+    font-size:18px;
+    opacity:0;
+    transition:opacity 1s ease;
+    font-family: Arial, sans-serif;
+}
+
+.tap-hint.show{
+    opacity:0.9;
+}
+
+.tap-hint{
+    animation: fadeHint 2s infinite alternate;
+}
+
+@keyframes fadeHint{
+    from{opacity:0.5;}
+    to{opacity:1;}
+}
+
