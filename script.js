@@ -1,127 +1,71 @@
-/* ================= Typing Effect + Music ================= */
+document.addEventListener("DOMContentLoaded", function() {
 
-const typingElement = document.getElementById("typing");
-const cursor = document.getElementById("cursor");
-const music = document.getElementById("bg-music");
+    const typingElement = document.getElementById("typing");
+    const cursor = document.getElementById("cursor");
+    const music = document.getElementById("bg-music");
+    const timerElement = document.getElementById("timer");
 
-if (typingElement) {
+    /* ================= Typing Effect ================= */
 
-    const text = "Sana ❤️";
-    let index = 0;
-    const speed = 200;
+    if (typingElement) {
 
-    function typeEffect() {
-        if (index < text.length) {
-            typingElement.innerHTML += text.charAt(index);
-            index++;
-            setTimeout(typeEffect, speed);
-        } else {
+        const text = "Sana ❤️";
+        let index = 0;
+        const speed = 200;
 
-            // Hide cursor
-            if(cursor){
-                cursor.style.display = "none";
-            }
+        function typeEffect() {
+            if (index < text.length) {
+                typingElement.innerHTML += text.charAt(index);
+                index++;
+                setTimeout(typeEffect, speed);
+            } else {
 
-            // Start music after typing completes
-            if(music){
-                music.volume = 0;
-                music.play().catch(() => {});
+                if (cursor) {
+                    cursor.style.display = "none";
+                }
 
-                let fade = setInterval(function(){
-                    if(music.volume < 0.9){
-                        music.volume += 0.05;
-                    } else {
-                        clearInterval(fade);
-                    }
-                }, 200);
+                // Try playing music after typing
+                if (music) {
+                    music.play().catch(function(error){
+                        console.log("Autoplay blocked:", error);
+                    });
+                }
             }
         }
+
+        typeEffect();
     }
 
-    typeEffect();
-}
+    /* ================= Timer ================= */
 
+    if (timerElement) {
 
+        function updateTimer(){
+            const startDate = new Date("2022-11-23");
+            const now = new Date();
 
-/* ================= Timer (Safe Version) ================= */
+            let years = now.getFullYear() - startDate.getFullYear();
+            let months = now.getMonth() - startDate.getMonth();
+            let days = now.getDate() - startDate.getDate();
 
-const timerElement = document.getElementById("timer");
-
-if (timerElement) {
-
-    function updateTimer(){
-        const startDate = new Date("2022-11-23");
-        const now = new Date();
-
-        let years = now.getFullYear() - startDate.getFullYear();
-        let months = now.getMonth() - startDate.getMonth();
-        let days = now.getDate() - startDate.getDate();
-
-        if(days < 0){
-            months--;
-            days += new Date(now.getFullYear(), now.getMonth(), 0).getDate();
-        }
-
-        if(months < 0){
-            years--;
-            months += 12;
-        }
-
-        timerElement.innerHTML =
-            years + " Years " +
-            months + " Months " +
-            days + " Days ❤️";
-    }
-
-    updateTimer();
-    setInterval(updateTimer, 1000);
-}
-/* ================= Background Music ================= */
-
-const music = document.getElementById("bg-music");
-
-if (typingElement) {
-
-    const text = "Sana ❤️";
-    let index = 0;
-    const speed = 200;
-
-    function typeEffect() {
-        if (index < text.length) {
-            typingElement.innerHTML += text.charAt(index);
-            index++;
-            setTimeout(typeEffect, speed);
-        } else {
-
-            if(cursor){
-                cursor.style.display = "none";
+            if(days < 0){
+                months--;
+                days += new Date(now.getFullYear(), now.getMonth(), 0).getDate();
             }
 
-            // Play muted first (Chrome safe)
-            if(music){
-                music.muted = true;
-                music.play().then(() => {
-
-                    music.muted = false;
-                    music.volume = 0;
-
-                    let fade = setInterval(function(){
-                        if(music.volume < 0.9){
-                            music.volume += 0.05;
-                        } else {
-                            clearInterval(fade);
-                        }
-                    }, 200);
-
-                }).catch(error => {
-                    console.log("Autoplay blocked");
-                });
+            if(months < 0){
+                years--;
+                months += 12;
             }
+
+            timerElement.innerHTML =
+                years + " Years " +
+                months + " Months " +
+                days + " Days ❤️";
         }
+
+        updateTimer();
+        setInterval(updateTimer, 1000);
     }
 
-    typeEffect();
-}
-
-
-
+});
