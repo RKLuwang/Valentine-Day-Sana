@@ -1,0 +1,264 @@
+/* ================= GLOBAL ================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+html, body{
+    height:100%;
+}
+
+/* Links */
+a{
+    text-decoration:none;
+    color:white;
+    padding:10px 20px;
+    border:2px solid white;
+    border-radius:30px;
+    transition:0.3s;
+}
+
+a:hover{
+    background:white;
+    color:#b30000;
+}
+
+/* ================= HOMEPAGE ================= */
+
+body.home{
+    background: url('rose-heart.jpg') no-repeat center center/cover;
+    min-height:100vh;
+    color:white;
+    overflow:hidden;              /* FIX SCROLL ISSUE */
+    animation: slowZoom 20s ease-in-out infinite alternate;
+}
+
+/* Slow cinematic zoom */
+@keyframes slowZoom{
+    from{background-size:100%;}
+    to{background-size:110%;}
+}
+
+/* Floating hearts */
+.hearts{
+    position:fixed;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    top:0;
+    left:0;
+    pointer-events:none;
+    z-index:1;
+}
+
+.hearts::before{
+    content:"💖 💗 💕 💘 💞 💓";
+    position:absolute;
+    width:100%;
+    font-size:28px;
+    white-space:nowrap;
+    animation: floatHearts 25s linear infinite;
+    opacity:0.6;
+}
+
+@keyframes floatHearts{
+    0%{transform:translateY(100vh);}
+    100%{transform:translateY(-10vh);}
+}
+
+/* Overlay */
+.overlay{
+    background: rgba(0,0,0,0.5);
+    min-height:100vh;
+    position:relative;
+    z-index:2;
+}
+
+/* Center main text */
+.center-content{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    text-align:center;
+}
+
+/* Main title */
+.title{
+    font-family: 'Great Vibes', cursive;
+    font-size:70px;
+    animation: fadeIn 2s ease-in-out;
+}
+
+/* Sana typing glow */
+.name{
+    font-family: 'Great Vibes', cursive;
+    font-size:55px;
+    margin-top:10px;
+    min-height:60px;
+    color:#ffccd5;
+    text-shadow:0 0 10px #ff4d6d,
+                0 0 20px #ff1a75,
+                0 0 30px #ff0066;
+}
+
+/* Cursor */
+#cursor{
+    animation: blink 1s infinite;
+}
+
+/* Animations */
+@keyframes blink{
+    0%{opacity:1;}
+    50%{opacity:0;}
+    100%{opacity:1;}
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(-30px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+/* Bottom links */
+.bottom-left,
+.bottom-right{
+    position:absolute;
+    bottom:30px;
+    font-size:20px;
+}
+
+.bottom-left{
+    left:30px;
+}
+
+.bottom-right{
+    right:30px;
+}
+
+/* ================= TIMER PAGE ================= */
+
+.timer-page{
+    background: linear-gradient(to right, #8B0000, #ff4d6d);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:20px;
+    color:white;
+}
+
+.center-container{
+    max-width:500px;
+    width:100%;
+}
+
+.heading{
+    font-family: 'Great Vibes', cursive;
+    font-size:45px;
+    margin-bottom:20px;
+}
+
+.top-image{
+    width:100%;
+    max-width:300px;
+    border-radius:20px;
+    margin-bottom:25px;
+}
+
+#timer{
+    font-family: Arial Black, sans-serif;
+    font-size:28px;
+    margin-top:15px;
+}
+
+.result{
+    margin-top:20px;
+    font-size:18px;
+    font-family: Arial, sans-serif;
+}
+
+/* ================= YOUR DADA PAGE ================= */
+
+.dada-page{
+    background: linear-gradient(to bottom, #ffccd5, #ff8fa3);
+    text-align:center;
+    padding:40px 20px;
+    min-height:100vh;
+}
+
+.dada-heading{
+    font-family: 'Great Vibes', cursive;
+    font-size:45px;
+    margin-bottom:30px;
+    color:#b30000;
+}
+
+.collage{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:20px;
+    max-width:1000px;
+    margin:0 auto 40px auto;
+}
+
+.collage img{
+    width:100%;
+    height:250px;
+    object-fit:cover;
+    border-radius:20px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.3);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.collage img:hover{
+    transform:scale(1.05);
+    box-shadow:0 10px 25px rgba(0,0,0,0.5);
+}
+
+.love-text{
+    font-size:22px;
+    font-weight:bold;
+    color:#800000;
+    font-family: Arial Black, sans-serif;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 900px){
+    .collage{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px){
+
+    .title{
+        font-size:40px;
+    }
+
+    .name{
+        font-size:35px;
+    }
+
+    .bottom-left,
+    .bottom-right{
+        font-size:16px;
+        bottom:20px;
+    }
+
+    .collage{
+        grid-template-columns: 1fr;
+    }
+
+    .collage img{
+        height:200px;
+    }
+}
