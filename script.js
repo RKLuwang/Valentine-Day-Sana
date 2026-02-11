@@ -1,7 +1,8 @@
-/* ================= Typing Effect ================= */
+/* ================= Typing Effect + Music ================= */
 
 const typingElement = document.getElementById("typing");
 const cursor = document.getElementById("cursor");
+const music = document.getElementById("bg-music");
 
 if (typingElement) {
 
@@ -15,14 +16,31 @@ if (typingElement) {
             index++;
             setTimeout(typeEffect, speed);
         } else {
+
+            // Hide cursor
             if(cursor){
                 cursor.style.display = "none";
+            }
+
+            // Start music after typing completes
+            if(music){
+                music.volume = 0;
+                music.play().catch(() => {});
+
+                let fade = setInterval(function(){
+                    if(music.volume < 0.9){
+                        music.volume += 0.05;
+                    } else {
+                        clearInterval(fade);
+                    }
+                }, 200);
             }
         }
     }
 
     typeEffect();
 }
+
 
 
 /* ================= Timer (Safe Version) ================= */
@@ -83,4 +101,5 @@ if(music){
 
     document.addEventListener("click", startMusic);
 }
+
 
