@@ -10,29 +10,35 @@ document.addEventListener("DOMContentLoaded", function () {
 
     /* ===== Typing Effect ===== */
 
-    if (typingElement) {
+   if (typingElement) {
 
-        const text = "Sana ❤️";
-        let index = 0;
-        const speed = 200;
+    const text = "Sana ❤️";
+    let index = 0;
+    const speed = 200;
 
-        function typeEffect() {
-            if (index < text.length) {
-                typingElement.textContent += text.charAt(index);
-                index++;
-                setTimeout(typeEffect, speed);
-            } else {
+    function typeEffect() {
+        if (index < text.length) {
+            typingElement.textContent += text.charAt(index);
+            index++;
+            setTimeout(typeEffect, speed);
+        } else {
 
-                if (cursor) cursor.style.display = "none";
-                typingFinished = true;
+            if (cursor) cursor.style.display = "none";
+            typingFinished = true;
 
-                // Show hint ONLY after typing completes
-                if (tapHint) tapHint.classList.add("show");
+            // Show hint AFTER typing finishes
+            if (tapHint) {
+                tapHint.style.display = "block";
+                setTimeout(() => {
+                    tapHint.style.opacity = "1";
+                }, 50);
             }
         }
-
-        typeEffect();
     }
+
+    typeEffect();
+}
+
 
     /* ===== Start Music On Tap ===== */
 
@@ -62,3 +68,4 @@ document.addEventListener("DOMContentLoaded", function () {
     document.addEventListener("touchstart", startMusic);
 
 });
+
