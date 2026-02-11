@@ -30,11 +30,12 @@ a:hover{
 
 body.home{
     background: url('rose-heart.jpg') no-repeat center center/cover;
-    min-height:100vh;
+    height: 100dvh; /* 👈 FIX for mobile */
     color:white;
-    overflow:hidden;              /* FIX SCROLL ISSUE */
+    overflow:hidden;
     animation: slowZoom 20s ease-in-out infinite alternate;
 }
+
 
 /* Slow cinematic zoom */
 @keyframes slowZoom{
@@ -72,7 +73,7 @@ body.home{
 /* Overlay */
 .overlay{
     background: rgba(0,0,0,0.5);
-    min-height:100vh;
+    height:100dvh;
     position:relative;
     z-index:2;
 }
