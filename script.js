@@ -10,47 +10,46 @@ document.addEventListener("DOMContentLoaded", function () {
 
     /* ===== Typing Effect ===== */
 
-   if (typingElement) {
+    if (typingElement) {
 
-    const text = "Sana ❤️";
-    let index = 0;
-    const speed = 200;
+        const text = "Sana ❤️";
+        let index = 0;
+        const speed = 200;
 
-    function typeEffect() {
-        if (index < text.length) {
-            typingElement.textContent += text.charAt(index);
-            index++;
-            setTimeout(typeEffect, speed);
-        } else {
+        function typeEffect() {
+            if (index < text.length) {
+                typingElement.textContent += text.charAt(index);
+                index++;
+                setTimeout(typeEffect, speed);
+            } else {
 
-            if (cursor) cursor.style.display = "none";
-            typingFinished = true;
+                if (cursor) cursor.style.display = "none";
+                typingFinished = true;
 
-            // Show hint AFTER typing finishes
-            if (tapHint) {
-                tapHint.style.display = "block";
-                setTimeout(() => {
-                    tapHint.style.opacity = "1";
-                }, 50);
+                if (tapHint) {
+                    tapHint.style.display = "block";
+                    setTimeout(() => {
+                        tapHint.style.opacity = "1";
+                    }, 50);
+                }
             }
         }
+
+        typeEffect();
     }
 
-    typeEffect();
-}
+    /* ===== Mobile Safe Tap Handler ===== */
 
+    function handleTap() {
 
-    /* ===== Start Music On Tap ===== */
-
-    function startMusic() {
-
-        if (typingFinished && !musicStarted && music) {
+        if (!musicStarted && music) {
 
             musicStarted = true;
 
-            // Hide hint permanently
+            // Hide hint
             if (tapHint) tapHint.style.display = "none";
 
+            // Play directly inside tap event
             music.volume = 0;
             music.play();
 
@@ -61,11 +60,13 @@ document.addEventListener("DOMContentLoaded", function () {
                     clearInterval(fade);
                 }
             }, 200);
+
+            document.removeEventListener("click", handleTap);
+            document.removeEventListener("touchstart", handleTap);
         }
     }
 
-    document.addEventListener("click", startMusic);
-    document.addEventListener("touchstart", startMusic);
+    document.addEventListener("click", handleTap);
+    document.addEventListener("touchstart", handleTap);
 
 });
-
