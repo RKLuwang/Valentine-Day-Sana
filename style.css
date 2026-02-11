@@ -265,18 +265,17 @@ body.home{
 }
 
 .tap-hint{
+    display:none;          /* completely hidden initially */
     margin-top:15px;
     font-size:18px;
     font-family: Arial, sans-serif;
     opacity:0;
-    visibility:hidden;
-    transition:opacity 0.8s ease;
 }
 
 /* When shown */
 .tap-hint.show{
+    display:block;
     opacity:0.9;
-    visibility:visible;
     animation: fadeHint 2s infinite alternate;
 }
 
@@ -284,4 +283,6 @@ body.home{
     from{opacity:0.5;}
     to{opacity:1;}
 }
+
+
 
