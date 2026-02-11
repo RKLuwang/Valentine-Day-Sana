@@ -80,26 +80,48 @@ if (timerElement) {
 
 const music = document.getElementById("bg-music");
 
-if(music){
+if (typingElement) {
 
-    function startMusic(){
-        music.volume = 0;
-        music.play();
+    const text = "Sana ❤️";
+    let index = 0;
+    const speed = 200;
 
-        // Smooth fade-in
-        let fade = setInterval(function(){
-            if(music.volume < 0.9){
-                music.volume += 0.05;
-            } else {
-                clearInterval(fade);
+    function typeEffect() {
+        if (index < text.length) {
+            typingElement.innerHTML += text.charAt(index);
+            index++;
+            setTimeout(typeEffect, speed);
+        } else {
+
+            if(cursor){
+                cursor.style.display = "none";
             }
-        }, 200);
 
-        // Remove listener after first tap
-        document.removeEventListener("click", startMusic);
+            // Play muted first (Chrome safe)
+            if(music){
+                music.muted = true;
+                music.play().then(() => {
+
+                    music.muted = false;
+                    music.volume = 0;
+
+                    let fade = setInterval(function(){
+                        if(music.volume < 0.9){
+                            music.volume += 0.05;
+                        } else {
+                            clearInterval(fade);
+                        }
+                    }, 200);
+
+                }).catch(error => {
+                    console.log("Autoplay blocked");
+                });
+            }
+        }
     }
 
-    document.addEventListener("click", startMusic);
+    typeEffect();
 }
+
 
 
