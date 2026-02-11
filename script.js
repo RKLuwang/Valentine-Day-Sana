@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
     /* ===== Typing Effect ===== */
 
     if (typingElement) {
+
         const text = "Sana ❤️";
         let index = 0;
         const speed = 200;
@@ -21,9 +22,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 index++;
                 setTimeout(typeEffect, speed);
             } else {
+
                 if (cursor) cursor.style.display = "none";
                 typingFinished = true;
 
+                // Show hint ONLY after typing completes
                 if (tapHint) tapHint.classList.add("show");
             }
         }
@@ -31,13 +34,15 @@ document.addEventListener("DOMContentLoaded", function () {
         typeEffect();
     }
 
-    /* ===== Start Music After Tap ===== */
+    /* ===== Start Music On Tap ===== */
 
     function startMusic() {
+
         if (typingFinished && !musicStarted && music) {
 
             musicStarted = true;
 
+            // Hide hint permanently
             if (tapHint) tapHint.style.display = "none";
 
             music.volume = 0;
