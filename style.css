@@ -267,16 +267,16 @@ body.home{
 .tap-hint{
     margin-top:15px;
     font-size:18px;
-    opacity:0;
-    transition:opacity 1s ease;
     font-family: Arial, sans-serif;
+    opacity:0;
+    visibility:hidden;
+    transition:opacity 0.8s ease;
 }
 
+/* When shown */
 .tap-hint.show{
     opacity:0.9;
-}
-
-.tap-hint{
+    visibility:visible;
     animation: fadeHint 2s infinite alternate;
 }
 
