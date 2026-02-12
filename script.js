@@ -2,55 +2,42 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const typingElement = document.getElementById("typing");
     const cursor = document.getElementById("cursor");
-    const music = document.getElementById("bg-music");
     const tapHint = document.getElementById("tap-hint");
-
-    let musicStarted = false;
-    let typingDone = false;
+    const music = document.getElementById("bg-music");
 
     /* ===== Typing Effect ===== */
-
     if (typingElement) {
-
         const text = "Sana ❤️";
         let index = 0;
-        const speed = 200;
 
         function typeEffect() {
             if (index < text.length) {
                 typingElement.textContent += text.charAt(index);
                 index++;
-                setTimeout(typeEffect, speed);
+                setTimeout(typeEffect, 200);
             } else {
                 if (cursor) cursor.style.display = "none";
-                typingDone = true;
-
-                if (tapHint) {
-                    tapHint.style.display = "block";
-                    tapHint.style.opacity = "1";
-                }
+                if (tapHint) tapHint.style.display = "block";
             }
         }
 
         typeEffect();
     }
 
-    /* ===== ALWAYS Allow Tap To Start Music ===== */
+    /* ===== Android Safe Music Start ===== */
+    function startMusic() {
+        if (music && music.paused) {
 
-    function playMusic() {
-        if (!musicStarted && music) {
-            musicStarted = true;
+            music.currentTime = 0;
+            music.volume = 1;
+            music.play();
 
-            music.play().then(() => {
-                if (tapHint) tapHint.style.display = "none";
-            }).catch(err => {
-                console.log("Play blocked:", err);
-            });
+            if (tapHint) tapHint.style.display = "none";
         }
     }
 
-    // Attach directly to body for strongest mobile compatibility
-    document.body.addEventListener("click", playMusic);
-    document.body.addEventListener("touchstart", playMusic);
+    // Must attach directly to body for Android
+    document.body.addEventListener("click", startMusic);
+    document.body.addEventListener("touchstart", startMusic);
 
 });
