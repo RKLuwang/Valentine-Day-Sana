@@ -240,10 +240,12 @@ body.home{
     font-weight:bold;
     color:#800000;
     font-family: Arial Black, sans-serif;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    max-width:90%;
+    margin:20px auto 0 auto;   /* 🔥 pulls text upward */
+    line-height:1.4;
+    text-align:center;
 }
+
 
 /* ================= RESPONSIVE ================= */
 
@@ -275,6 +277,28 @@ body.home{
 
     .collage img{
         height:200px;
+    }
+}
+
+
+@media (min-width: 1200px){
+    .love-text{
+        font-size:24px;
+        white-space:nowrap;   /* only laptop forces single line */
+    }
+}
+
+@media (max-width: 900px){
+    .love-text{
+        font-size:20px;
+        white-space:normal;
+    }
+}
+
+@media (max-width: 600px){
+    .love-text{
+        font-size:18px;
+        white-space:normal;
     }
 }
 
